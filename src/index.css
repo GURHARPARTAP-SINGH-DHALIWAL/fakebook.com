@@ -523,3 +523,29 @@ nav .nav-links ul li:hover {
 #add-post-btn:hover {
   cursor: pointer;
 }
+
+
+#search-icon{
+  font-size: 1.3rem;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  padding: 2px;
+  padding-top: 6px;
+}
+
+#logo{
+  font-size:3rem ;
+}
+
+@media (max-width: 768px) {
+  #logo{
+    display: none;
+  }
+}
+
+
+@media (max-width: 768px) {
+  #user-dp{
+    display: none;
+  }
+}

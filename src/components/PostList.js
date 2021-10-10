@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class PostList extends React.Component {
     render() { 
@@ -84,4 +85,12 @@ class PostList extends React.Component {
     }
 }
  
+// This gives warning on wromg props types
+
+
+PostList.propTypes={
+    posts:PropTypes.array.isRequired
+}
+
+
 export default PostList;

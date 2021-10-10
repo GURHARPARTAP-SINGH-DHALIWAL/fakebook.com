@@ -21,6 +21,54 @@ class App extends React.Component {
   
     return (
       <div>
+
+          <nav className="nav">
+              <div className="left-div">
+              <i class="fab fa-facebook" id="logo">akebook</i>
+              </div>
+
+              <div className="search-container">
+
+                  <i class="fas fa-search" id="search-icon"></i>
+                  <input type="text" placeholder="Search"/>
+
+                  <div className="search-results">
+
+                    <ul>
+                      <li className="search-results-row">
+                          <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="user-image" />
+                          <span>GSD</span>
+                      </li>
+
+
+                      <li className="search-results-row">
+                          <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="user-image" />
+                          <span>GSD2</span>
+                      </li>
+
+                    </ul>
+                  </div>
+              </div>
+
+              <div className="right-nav">
+
+
+                    <div className="user">
+                          <img id="user-dp" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="user-image" />
+                          <span>GSD2</span>
+                    </div>
+
+
+                    <div className="nav-links">
+                          <ul>
+                                <li>Log In</li>
+                                <li>Log Out</li>
+                                <li>Register</li>
+                          </ul>
+                    </div>
+              </div>
+          </nav>
+           
           <PostList posts={posts}></PostList>
       </div>
     );
