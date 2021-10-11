@@ -1,7 +1,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { fetchPosts } from '../actions/posts';
-import {PostList} from './';
+import {PostList,NavBar} from './';
+import {BrowserRouter as Router,Link,Route,Switch} from 'react-router-dom';
+import Home from './Home';
+import Page404 from './Page404';
+
+const login = () => {
+  return ( 
+    <div>Hello</div>
+   );
+}
+ 
+
+
 
 class App extends React.Component {
   constructor(props) {
@@ -17,60 +29,27 @@ class App extends React.Component {
       
 
      console.log("posts Array",posts);
-   
+    // for the router to woirk wrap the root element inside the router
   
     return (
+      <Router>
       <div>
 
-          <nav className="nav">
-              <div className="left-div">
-              <i class="fab fa-facebook" id="logo">akebook</i>
-              </div>
+            <NavBar />
+            <Switch>
+            <Route exact path="/" render={
+              (props)=>{
+               return  <Home {...props} posts={posts}/>
+              }
+            }/>
+            <Route exact path="/login" component={login} />
+            <Route  component={Page404} />
 
-              <div className="search-container">
+            </Switch>
+         
 
-                  <i class="fas fa-search" id="search-icon"></i>
-                  <input type="text" placeholder="Search"/>
-
-                  <div className="search-results">
-
-                    <ul>
-                      <li className="search-results-row">
-                          <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="user-image" />
-                          <span>GSD</span>
-                      </li>
-
-
-                      <li className="search-results-row">
-                          <img src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="user-image" />
-                          <span>GSD2</span>
-                      </li>
-
-                    </ul>
-                  </div>
-              </div>
-
-              <div className="right-nav">
-
-
-                    <div className="user">
-                          <img id="user-dp" src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg" alt="user-image" />
-                          <span>GSD2</span>
-                    </div>
-
-
-                    <div className="nav-links">
-                          <ul>
-                                <li>Log In</li>
-                                <li>Log Out</li>
-                                <li>Register</li>
-                          </ul>
-                    </div>
-              </div>
-          </nav>
-           
-          <PostList posts={posts}></PostList>
       </div>
+      </Router>
     );
   }
 }
