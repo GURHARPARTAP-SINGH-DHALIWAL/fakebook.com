@@ -5,6 +5,7 @@ import {PostList,NavBar} from './';
 import {BrowserRouter as Router,Link,Route,Switch} from 'react-router-dom';
 import Home from './Home';
 import Page404 from './Page404';
+import Login from './Login';
 
 const login = () => {
   return ( 
@@ -42,7 +43,7 @@ class App extends React.Component {
                return  <Home {...props} posts={posts}/>
               }
             }/>
-            <Route exact path="/login" component={login} />
+            <Route exact path="/login" component={Login} />
             <Route  component={Page404} />
 
             </Switch>
