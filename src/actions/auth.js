@@ -19,6 +19,12 @@ export function login(email,password){
                 'Content-type':'application/x-www-form-urlencoded',
             },
             body:getFormBody({email,password}),
-        });
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+        })
+        
+        ;
     }
 }
