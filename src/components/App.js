@@ -23,13 +23,15 @@ class App extends React.Component {
   }
   render() { 
     console.log('PROPS',this.props);
-     let posts=this.props.posts.posts;
+     let {posts}=this.props;
+     
 
      if(!posts)
      posts=[]; 
       
-
+   
      console.log("posts Array",posts);
+     
     // for the router to woirk wrap the root element inside the router
   
     return (
