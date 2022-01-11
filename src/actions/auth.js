@@ -1,6 +1,6 @@
 import { API_Urls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
-import { LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS } from "./actionTypes";
+import { AUTHENTICATE_USER, LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS, LOGOUT_USER } from "./actionTypes";
 import {
   SIGNUP_FAILED,
   SIGNUP_START,
@@ -111,3 +111,16 @@ export function signup(name,email,password,confirmPassword)
         
     };
 }
+
+export function authenticateUser(user){
+  return {
+    type:AUTHENTICATE_USER,
+    user:user
+  };
+};
+
+export function logoutUser(){
+  return {
+    type: LOGOUT_USER
+  };
+};

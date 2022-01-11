@@ -7,7 +7,8 @@ import Home from './Home';
 import Page404 from './Page404';
 import Login from './Login';
 import Signup from './Signup';
-import * as jwtDecode from 'jwt-decode';
+import  jwt_decode from 'jwt-decode';
+import { authenticateUser } from '../actions/auth';
 
 const login = () => {
   return ( 
@@ -25,8 +26,13 @@ class App extends React.Component {
     const token=localStorage.getItem('token');
     if(token)
     {
-      // const user=jwtDecode.decode(token);
-      // console.log(user);
+      const user=jwt_decode(token);
+      console.log(user);
+      this.props.dispatch(authenticateUser({
+        email:user.email,
+        _id:user._id,
+        name:user.name
+      }));
     }
   }
   render() { 
