@@ -6,6 +6,8 @@ import {BrowserRouter as Router,Link,Route,Switch} from 'react-router-dom';
 import Home from './Home';
 import Page404 from './Page404';
 import Login from './Login';
+import Signup from './Signup';
+import * as jwtDecode from 'jwt-decode';
 
 const login = () => {
   return ( 
@@ -20,6 +22,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.props.dispatch(fetchPosts());
+    const token=localStorage.getItem('token');
+    if(token)
+    {
+      // const user=jwtDecode.decode(token);
+      // console.log(user);
+    }
   }
   render() { 
     console.log('PROPS',this.props);
@@ -45,6 +53,7 @@ class App extends React.Component {
                return  <Home {...props} posts={posts}/>
               }
             }/>
+            <Route exact path="/signup" component={Signup}></Route>
             <Route exact path="/login" component={Login} />
             <Route  component={Page404} />
 

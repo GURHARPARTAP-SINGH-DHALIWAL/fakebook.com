@@ -6,6 +6,7 @@ class Login extends React.Component {
     constructor(props)
     {
         super(props);
+     
         this.state={
             email:'',
             password:''
@@ -30,22 +31,46 @@ class Login extends React.Component {
         this.props.dispatch(login(email,password));
     };
     render() { 
-        console.log("Renderd");
+
+        const {error,inProgress}=this.props.auth;
+        console.log("Renderd", inProgress, this.props.auth);
         return (
-            <form action="" className="login-form">
+          <form action="" className="login-form">
             <span className="login-signup-header">Log In</span>
+            {error && <div className="alert error-dailog">{error}</div>}
+
             <div className="field">
-                <input type="Email" required placeholder="email" onChange={(e)=>this.handleEmailChange(e)} value={this.state.email} />
+              <input
+                type="Email"
+                required
+                placeholder="email"
+                onChange={(e) => this.handleEmailChange(e)}
+                value={this.state.email}
+              />
             </div>
 
             <div className="field">
-                <input type="password" required placeholder="password"  onChange={(e)=>this.handlePasswordChange(e)} value={this.state.password} />
+              <input
+                type="password"
+                required
+                placeholder="password"
+                onChange={(e) => this.handlePasswordChange(e)}
+                value={this.state.password}
+              />
             </div>
 
             <div className="field">
-               <button onClick={this.handleSubmit}>Log In</button>
+              {
+               inProgress ? (
+                <button disabled="true">Logging In ...</button>
+              ) : (
+                <button onClick={this.handleSubmit} >
+                  Log In
+                </button>
+              )
+              }
             </div>
-        </form>
+          </form>
         );
     }
 }
@@ -57,4 +82,4 @@ function mapStateToProps(state)
         auth:state.auth
     }
 }
-export default Login;
+export default connect(mapStateToProps)(Login);

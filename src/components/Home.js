@@ -7,7 +7,9 @@ class Home extends React.Component {
     render() {
         console.log("props====>",this.props); 
         return (
+          <div className="home">
             <PostList posts={this.props.posts}></PostList>
+          </div>
         );
     }
 }

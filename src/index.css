@@ -59,13 +59,13 @@ code {
   border-radius: 4px;
   margin-top: 20px;
   background: #fff;
+  padding: 10px;
 }
 .post-header {
   padding: 10px 10px;
 }
 .post-avatar {
   display: flex;
-  
 }
 .post-avatar > div {
   display: flex;
@@ -74,7 +74,6 @@ code {
 }
 .post-avatar img {
   height: 40px;
-  border-radius: 15px;
 }
 .post-avatar .post-author {
   color: #616161;
@@ -100,6 +99,7 @@ code {
   line-height: 22px;
   color: #424242;
   margin-top: 15px;
+  padding: 5px;
 }
 .post-actions {
   padding: 5px;
@@ -410,6 +410,9 @@ nav .nav-links ul li:hover {
 .field button:hover {
   cursor: pointer;
 }
+.field button:disabled {
+  cursor: not-allowed;
+}
 
 /* SETTINGS and USERPROFILE */
 .settings {
@@ -522,34 +525,4 @@ nav .nav-links ul li:hover {
 }
 #add-post-btn:hover {
   cursor: pointer;
-}
-
-
-#search-icon{
-  font-size: 1.3rem;
-  background-color: rgb(0, 0, 0);
-  color: white;
-  padding: 2px;
-  padding-top: 6px;
-}
-
-#logo{
-  font-size:3rem ;
-}
-
-@media (max-width: 768px) {
-  #logo{
-    display: none;
-  }
-}
-
-
-@media (max-width: 768px) {
-  #user-dp{
-    display: none;
-  }
-}
-.nav{
-  background-color:rgb(27, 106, 226);
-    
 }

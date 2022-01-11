@@ -43,7 +43,7 @@ const NavBar = () => {
                     <ul>
                           <li><Link to="/login">Log In</Link></li>
                           <li><Link to="/logout">Log Out</Link></li>
-                          <li><Link to="register">Register</Link></li>
+                          <li><Link to="/signup">Register</Link></li>
                     </ul>
               </div>
         </div>

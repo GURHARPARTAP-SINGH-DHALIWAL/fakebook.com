@@ -1,4 +1,4 @@
-export function getFormBody(formBody)
+export function getFormBody(details)
 {
     var formBody = [];
     for (var property in details) {
