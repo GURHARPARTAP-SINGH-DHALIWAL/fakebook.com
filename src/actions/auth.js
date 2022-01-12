@@ -1,6 +1,6 @@
 import { API_Urls } from "../helpers/urls";
 import { getFormBody } from "../helpers/utils";
-import { AUTHENTICATE_USER, LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS, LOGOUT_USER } from "./actionTypes";
+import { AUTHENTICATE_USER, CLEAR_AUTH_STATE, LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS, LOGOUT_USER } from "./actionTypes";
 import {
   SIGNUP_FAILED,
   SIGNUP_START,
@@ -122,5 +122,12 @@ export function authenticateUser(user){
 export function logoutUser(){
   return {
     type: LOGOUT_USER
+  };
+};
+
+
+export function clearAuthState(){
+  return {
+    type:CLEAR_AUTH_STATE
   };
 };

@@ -49,11 +49,13 @@ class NavBar extends React.Component {
             <div className="right-nav">
               {auth.isLoggedin && (
                 <div className="user">
-                  <img
-                    id="user-dp"
-                    src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
-                    alt="user-image"
-                  />
+                  <Link to="/settings">
+                    <img
+                      id="user-dp"
+                      src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
+                      alt="user-image"
+                    />
+                  </Link>
                   <span>{auth.user.name}</span>
                 </div>
               )}
@@ -65,11 +67,7 @@ class NavBar extends React.Component {
                     </li>
                   )}
 
-                  {auth.isLoggedin && (
-                    <li onClick={this.logOut} >
-                        Log Out
-                    </li>
-                  )}
+                  {auth.isLoggedin && <li onClick={this.logOut}>Log Out</li>}
 
                   {!auth.isLoggedin && (
                     <li>

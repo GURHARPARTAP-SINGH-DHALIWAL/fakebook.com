@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { signup } from "../actions/auth";
+import { clearAuthState, signup } from "../actions/auth";
+import { Redirect } from "react-router-dom";
 
 class Signup extends React.Component {
   constructor(props) {
@@ -38,6 +39,10 @@ class Signup extends React.Component {
       cpassword: e.target.value,
     });
   };
+
+  componentDidMount() {
+    this.props.dispatch(clearAuthState());
+  }
   
 
   handleSubmit = (e)=>{
@@ -49,6 +54,11 @@ class Signup extends React.Component {
   render() {
         console.log("Rendered");
         const {error,inProgress}=this.props.auth;
+        const { auth } = this.props;
+
+        if (auth.isLoggedin) {
+          return <Redirect to="/"></Redirect>;
+        }
     return (
       <div>
         <form action="" className="login-form">

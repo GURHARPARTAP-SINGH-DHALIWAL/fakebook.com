@@ -1,6 +1,8 @@
 import React from "react";
-import { login } from "../actions/auth";
+import { clearAuthState, login } from "../actions/auth";
 import {connect} from 'react-redux';
+import { auth } from "../reducers/auth";
+import { Redirect } from "react-router-dom";
 class Login extends React.Component {
 
     constructor(props)
@@ -11,6 +13,10 @@ class Login extends React.Component {
             email:'',
             password:''
         }
+    }
+    //WARNING! To be deprecated in React v17. Use componentDidMount instead.
+    componentWillMount() {
+      this.props.dispatch(clearAuthState());
     }
     handleEmailChange=(e)=>{
         console.log(e.target.value);
@@ -34,6 +40,14 @@ class Login extends React.Component {
 
         const {error,inProgress}=this.props.auth;
         console.log("Renderd", inProgress, this.props.auth);
+        const{auth}=this.props;
+        // from contains ans object location
+        const {from}=this.props.location.state||{from:{pathName:'/'}};
+
+
+        if(auth.isLoggedin){
+          return <Redirect to={from}></Redirect>
+        }
         return (
           <form action="" className="login-form">
             <span className="login-signup-header">Log In</span>
