@@ -1,4 +1,4 @@
-import { ADD_FRIEND, FETCH_FRIENDS_SUCCESS } from "../actions/actionTypes";
+import { ADD_FRIEND, FETCH_FRIENDS_SUCCESS, REMOVE_FRIEND } from "../actions/actionTypes";
 
 
 
@@ -10,7 +10,10 @@ export function friends(state=initialState,action){
         case FETCH_FRIENDS_SUCCESS:
             return  [...action.friends];  
         case ADD_FRIEND:
-            return state.concat(action.friendShip) 
+            return state.concat(action.friendShip);
+        case REMOVE_FRIEND:
+            const newState=state.filter(friend=>friend.to_user._id!=action.userId);
+            return newState;     
         default:
             return state
 

@@ -3,7 +3,7 @@ import { fetchUserProfile } from "../actions/profile";
 import { connect } from "react-redux";
 import { API_Urls } from "../helpers/urls";
 import { getAuthorisationTokenFromLocalStorage } from "../helpers/utils";
-import { addFriend } from "../actions/friends";
+import { addFriend, removeFriend } from "../actions/friends";
 // SO basically this components mounts just before mounting API is Hit and the store is chaged accordingly
 
 class User extends React.Component {
@@ -60,7 +60,7 @@ class User extends React.Component {
         if(data.success)
         {
             this.setState({
-                success:true
+                success:"Friend Added!"
             });
             this.props.dispatch(addFriend(data.data.friendship));
         }
@@ -72,7 +72,35 @@ class User extends React.Component {
         }
     };
 
-    handleRemoveFriend=()=>{};
+    handleRemoveFriend=async ()=>{
+        const userId=this.props.match.params.userId;
+        const url=API_Urls.removeFriend(userId);
+
+
+         const options = {
+           method: "POST",
+           headers: {
+             "Content-type": "application/x-www-form-urlencoded",
+             Authorization: `Bearer ${getAuthorisationTokenFromLocalStorage()}`,
+           },
+         };
+
+         const res = await fetch(url, options);
+         const data = await res.json();
+
+         if (data.success) {
+           this.setState({
+             success: "Friend Removed!",
+           });
+           this.props.dispatch(removeFriend(userId));
+         } else {
+           this.setState({
+             error: data.message,
+             success: null,
+           });
+         }
+        
+    };
     render() { 
 
         const {profile}=this.props;
@@ -129,7 +157,7 @@ class User extends React.Component {
               <div className="alert error-dailog">{error}</div>
             )}
             {success && (
-              <div className="alert success-dailog">Friend Added !</div>
+              <div className="alert success-dailog">{success}</div>
             )}
           </div>
         );
