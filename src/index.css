@@ -526,3 +526,33 @@ nav .nav-links ul li:hover {
 #add-post-btn:hover {
   cursor: pointer;
 }
+#logo{
+  font-size: 2rem;
+  color: #c3e6cb;
+}
+
+img{
+  
+  border-radius: 55%;
+  
+}
+
+#loader{
+  font-size: 4rem;
+  position: absolute;
+  left: 47%;
+  top: 43%;
+  animation-name: spin;
+  animation-duration: 2000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; 
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

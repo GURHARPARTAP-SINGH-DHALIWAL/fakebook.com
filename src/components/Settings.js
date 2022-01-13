@@ -1,7 +1,9 @@
 import React, { useReducer } from "react";
 import { connect } from "react-redux";
+import { clearAuthState, editUser } from "../actions/auth";
 
 class Settings extends React.Component {
+  // Error== false only after profile gets updated 
     constructor(props){
         super(props);
         this.state={
@@ -13,15 +15,26 @@ class Settings extends React.Component {
         };
     }
 
+    componentWillUnmount() {
+        this.props.dispatch(clearAuthState());
+    }
+
     handleChange=(fieldName,val)=>{
         this.setState({
             [fieldName]:val
         });
     };
 
+    handleSave=()=>{
+      const {name,passowrd,confirmPassword}=this.state;
+      const {user}=this.props.auth;
+
+      this.props.dispatch(editUser(name,passowrd,confirmPassword,user._id));
+    };
+
     render() { 
 
-        const{user}=this.props.auth;
+        const{user,error}=this.props.auth;
         const {editMode}=this.state;
         return (
           <div className="settings">
@@ -32,6 +45,12 @@ class Settings extends React.Component {
                 alt="user-image"
               />
             </div>
+
+
+            
+            {error && <div className="alert error-dailog">{error}</div>}
+            {error===false && <div className="alert success-dailog">Profile Successfully Updated</div>}
+            <br />
 
             <div className="field">
               <div className="field-label">Email</div>
@@ -68,20 +87,25 @@ class Settings extends React.Component {
 
             {editMode && (
               <div className="field">
-                <div className="field-label">Confirm Passowrd</div>
+                <div className="field-label">Confirm Password</div>
                 <input
                   type="password"
                   onChange={(e) => {
-                    this.handleChange("confirmPassowrd", e.target.value);
+                    this.handleChange("confirmPassword", e.target.value);
                   }}
                   value={this.state.confirmPassword}
                 />
               </div>
             )}
 
-            <div className="btn-group">
+            <div className="btn-grp">
               {editMode ? (
-                <button className="button save-button">Save</button>
+                <button
+                  className="button save-button"
+                  onClick={this.handleSave}
+                >
+                  Save
+                </button>
               ) : (
                 <button
                   className="button edit-button "

@@ -1,6 +1,15 @@
 import { API_Urls } from "../helpers/urls";
-import { getFormBody } from "../helpers/utils";
-import { AUTHENTICATE_USER, CLEAR_AUTH_STATE, LOGIN_FAILED, LOGIN_START, LOGIN_SUCCESS, LOGOUT_USER } from "./actionTypes";
+import { getAuthorisationTokenFromLocalStorage, getFormBody } from "../helpers/utils";
+import {
+  AUTHENTICATE_USER,
+  CLEAR_AUTH_STATE,
+  EDIT_USER_SUCCESSFUL,
+  EDIT_USER_FAILED,
+  LOGIN_FAILED,
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGOUT_USER,
+} from "./actionTypes";
 import {
   SIGNUP_FAILED,
   SIGNUP_START,
@@ -49,6 +58,47 @@ export function signupSuccess(user) {
     user,
   };
 }
+
+export function authenticateUser(user){
+  return {
+    type:AUTHENTICATE_USER,
+    user:user
+  };
+};
+
+export function logoutUser(){
+  return {
+    type: LOGOUT_USER
+  };
+};
+
+
+export function clearAuthState(){
+  return {
+    type:CLEAR_AUTH_STATE
+  };
+};
+
+// These will be dispatched from thunk when it will call the async one
+
+
+export function editUserSuccessful(user){
+  return {
+    type:EDIT_USER_SUCCESSFUL ,
+    user
+  };
+};
+
+
+
+export function editUserFailed(error) {
+  return {
+    type: EDIT_USER_FAILED,
+    error,
+  };
+};
+
+
 
 
 export function login(email,password){
@@ -112,22 +162,51 @@ export function signup(name,email,password,confirmPassword)
     };
 }
 
-export function authenticateUser(user){
-  return {
-    type:AUTHENTICATE_USER,
-    user:user
-  };
-};
-
-export function logoutUser(){
-  return {
-    type: LOGOUT_USER
-  };
-};
 
 
-export function clearAuthState(){
-  return {
-    type:CLEAR_AUTH_STATE
+export function editUser(name,password,confirmPassword,userId){
+
+  // return function as this will be async but dispatch works synchornlsy  so middleware will be executed and thunk will check if action is of type function then it will execute it and then again dispatch will be called
+  return (dispatch)=>{
+      const url=API_Urls.editProfile();
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded",
+          "Authorization":`Bearer ${getAuthorisationTokenFromLocalStorage()}`
+        },
+        body:getFormBody({
+          name,
+          password,
+          confirm_password:confirmPassword,
+          id:userId
+        }),
+      })
+      .then(res=>res.json())
+      .then(data=>{
+        console.log('data',data);
+
+        if(data.success)
+        {
+          dispatch(editUserSuccessful(data.data.user));
+          // Change token also as layload gets updated
+
+          if (data.data.token) {
+            localStorage.setItem("token", data.data.token);
+          }
+          return;
+        }
+
+
+        if(data.message)
+        {
+          dispatch(editUserFailed(data.message));
+        }
+
+
+      });
+
+
   };
 };

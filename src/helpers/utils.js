@@ -10,3 +10,9 @@ export function getFormBody(details)
 
     return formBody;
 }
+
+
+export function getAuthorisationTokenFromLocalStorage()
+{
+    return localStorage.getItem('token');
+}

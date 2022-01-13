@@ -10,13 +10,17 @@ import Signup from './Signup';
 import  jwt_decode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 import Settings from './Settings';
+import { getAuthorisationTokenFromLocalStorage } from '../helpers/utils';
+import User from './User';
+import { fetchFriends } from '../actions/friends';
 
 const login = () => {
   return ( 
     <div>Hello</div>
    );
 }
- 
+
+//  The props provided by the router has location, hostiory and other things we can use that
 const PrivateRoute = (props) => {
   const {path,isLoggedin,component:Component}=props;
   return <Route path={path} render={(props)=>{
@@ -37,7 +41,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.props.dispatch(fetchPosts());
-    const token=localStorage.getItem('token');
+    const token=getAuthorisationTokenFromLocalStorage();
     if(token)
     {
       const user=jwt_decode(token);
@@ -47,11 +51,16 @@ class App extends React.Component {
         _id:user._id,
         name:user.name
       }));
+
+      this.props.dispatch(fetchFriends(user._id));
+
     }
   }
   render() { 
     console.log('PROPS',this.props);
      let {posts}=this.props;
+     const{friends}=this.props;
+     const {isLoggedin}=this.props.auth;
      
 
      if(!posts)
@@ -64,25 +73,32 @@ class App extends React.Component {
   
     return (
       <Router>
-      <div>
+        <div>
+          <NavBar />
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={(props) => {
+                return <Home {...props}  friends ={friends}  isLoggedIn={isLoggedin} posts={posts} />;
+              }}
+            />
 
-            <NavBar />
-            <Switch>
-            <Route exact path="/" render={
-              (props)=>{
-               return  <Home {...props} posts={posts}/>
-              }
-            }/>
-
-            <PrivateRoute path='/settings' component={Settings} isLoggedin={this.props.auth.isLoggedin} ></PrivateRoute>
+            <PrivateRoute
+              path="/settings"
+              component={Settings}
+              isLoggedin={this.props.auth.isLoggedin}
+            ></PrivateRoute>
             <Route exact path="/signup" component={Signup}></Route>
             <Route exact path="/login" component={Login} />
-            <Route  component={Page404} />
-
-            </Switch>
-         
-
-      </div>
+            <PrivateRoute
+              path="/user/:userId"
+              component={User}
+              isLoggedin={this.props.auth.isLoggedin}
+            ></PrivateRoute>
+            <Route component={Page404} />
+          </Switch>
+        </div>
       </Router>
     );
   }
@@ -91,7 +107,8 @@ class App extends React.Component {
 function mapStateToProps(state){
          return {
            posts:state.posts,
-           auth:state.auth
+           auth:state.auth,
+           friends:state.friends
          }
 };
 
