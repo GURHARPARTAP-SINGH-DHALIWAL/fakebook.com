@@ -47,6 +47,6 @@ export function  fetchUserProfile(userId){
             else{
                 dispatch(userProfileFail(data.data.message));
             }
-        });
+        }).catch(err=>console.log(err));
     };
 };
