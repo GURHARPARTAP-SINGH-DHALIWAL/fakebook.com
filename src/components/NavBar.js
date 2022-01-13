@@ -15,15 +15,18 @@ class NavBar extends React.Component {
             <div className="left-div">
               <Link to="/">
                 {" "}
-                <i class="fab fa-facebook" id="logo" >
+                <i class="fab fa-facebook" id="logo">
                   akebook
                 </i>
               </Link>
             </div>
 
             <div className="search-container">
-              {/* <i class="fas fa-search" id="search-icon"></i> */}
-              <input type="text" placeholder="Search" />
+              {/* <div id="icon-container">
+               
+                <i class="fas fa-search" id="search-icon"></i>
+              </div> */}
+              <input type="text" placeholder="Search"></input>
 
               <div className="search-results">
                 <ul>

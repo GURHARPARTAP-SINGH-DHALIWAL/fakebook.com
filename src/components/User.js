@@ -1,9 +1,20 @@
 import React from "react";
 import { fetchUserProfile } from "../actions/profile";
 import { connect } from "react-redux";
-
+import { API_Urls } from "../helpers/urls";
+import { getAuthorisationTokenFromLocalStorage } from "../helpers/utils";
+import { addFriend } from "../actions/friends";
+// SO basically this components mounts just before mounting API is Hit and the store is chaged accordingly
 
 class User extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state={
+            success:null,
+            error:null
+        };
+    }
 
     componentDidMount() {
 
@@ -14,11 +25,60 @@ class User extends React.Component {
             this.props.dispatch(fetchUserProfile(match.params.userId));
         }
     }
+
+    checkUserAFriend=()=>{
+
+        const {match}=this.props;
+        const userId=match.params.userId;
+
+        const index=this.props.friends.map(friend=>friend.to_user._id).indexOf(userId);
+      
+        if(index!=-1)
+        {
+            return true;
+        }
+        else
+        return false;
+
+    };
+
+    handleAddFriend=async ()=>{
+        const userId=this.props.match.params.userId;
+        const url=API_Urls.addFriend(userId);
+        console.log(url);
+        const options = {
+          method: "POST",
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${getAuthorisationTokenFromLocalStorage()}`,
+          },
+        };
+
+        const res=await fetch(url,options);
+        const data=await res.json();
+
+        if(data.success)
+        {
+            this.setState({
+                success:true
+            });
+            this.props.dispatch(addFriend(data.data.friendship));
+        }
+        else{
+            this.setState({
+                error:data.message,
+                success:null
+            });
+        }
+    };
+
+    handleRemoveFriend=()=>{};
     render() { 
 
         const {profile}=this.props;
         const user=profile.user;
         console.log(profile);
+        const {error,success}=this.state;
 
         if(profile.inProgress)
         {
@@ -28,6 +88,10 @@ class User extends React.Component {
               </div>
             );
         }
+
+        const isUserAFriend=this.checkUserAFriend();
+
+        
 
         console.log('User Profile>',this.props);
         return (
@@ -49,19 +113,24 @@ class User extends React.Component {
 
             <div className="field">
               <div className="field-label">Name</div>
-              
-                <div className="field-value">{user.name}</div>
-              
-            </div>
 
+              <div className="field-value">{user.name}</div>
+            </div>
 
             <div className="btn-grp">
-                <button className="btn save-button">Add Friend</button>
+              {isUserAFriend ? (
+                <button className="btn save-button" onClick={this.handleRemoveFriend}>Remove Friend</button>
+              ) : (
+                <button className="btn save-button" onClick={this.handleAddFriend}>Add Friend</button>
+              )}
             </div>
 
-        
-
-
+            {error && (
+              <div className="alert error-dailog">{error}</div>
+            )}
+            {success && (
+              <div className="alert success-dailog">Friend Added !</div>
+            )}
           </div>
         );
     }
@@ -69,7 +138,9 @@ class User extends React.Component {
  
 function mapStateToProps(state){
     return {
-        profile:state.profile
+        profile:state.profile,
+        friends:state.friends
+
     };
 };
 

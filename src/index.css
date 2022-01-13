@@ -556,3 +556,10 @@ img{
         transform:rotate(360deg);
     }
 }
+#search-icon{
+  font-size: 1.3rem;
+}
+#icon-container{
+  width: 10%;
+  background-color: rgb(67, 72, 80);
+}

@@ -2,7 +2,9 @@ import React from "react";
 import FriendListItem from "./FriendListItem";
 
 class FriendList extends React.Component {
+
     render() { 
+      
         return <div className="friends-list">
             <div className="header">
                     Friends
@@ -17,7 +19,8 @@ class FriendList extends React.Component {
             {
                 this.props.friends&&
                 this.props.friends.map(friend=>{
-                    <FriendListItem friend={friend.to_user} key={friend._id} />
+                 
+                   return ( <FriendListItem friend={friend.to_user} key={friend._id} />);
                 })
             }
         </div>;
