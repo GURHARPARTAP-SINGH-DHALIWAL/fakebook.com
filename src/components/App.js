@@ -63,8 +63,8 @@ class App extends React.Component {
      const {isLoggedin}=this.props.auth;
      
 
-     if(!posts)
-     posts=[]; 
+    //  if(!posts)
+    //  posts=[]; 
       
    
      console.log("posts Array",posts);
