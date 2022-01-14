@@ -31,7 +31,7 @@ class NavBar extends React.Component {
                 <i class="fas fa-spinner" id="loader"></i>
               </div>
             )}
-            <div className="left-div">
+            <div className="left-div" id="">
               <Link to="/">
                 <i class="fab fa-facebook" id="logo">
                   <span id="logo-text">akebook</span>
@@ -59,7 +59,7 @@ class NavBar extends React.Component {
                         <Link to={`/user/${user._id}`}>
                           <li className="search-results-row" key={user._id}>
                             <img
-                              src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
+                              src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
                               alt="user-image"
                             />
                             <span>{user.name}</span>
@@ -78,7 +78,7 @@ class NavBar extends React.Component {
                   <Link to="/settings">
                     <img
                       id="user-dp"
-                      src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
+                      src="https://static.vecteezy.com/system/resources/thumbnails/000/550/731/small/user_icon_004.jpg"
                       alt="user-image"
                     />
                   </Link>
@@ -93,7 +93,13 @@ class NavBar extends React.Component {
                     </li>
                   )}
 
-                  {auth.isLoggedin && <li onClick={this.logOut}>Log Out</li>}
+                  {auth.isLoggedin && (
+                    <li onClick={this.logOut}>
+                      <i class="fas fa-sign-out-alt"></i>
+                    
+                    </li>
+                    
+                  )}
 
                   {!auth.isLoggedin && (
                     <li>

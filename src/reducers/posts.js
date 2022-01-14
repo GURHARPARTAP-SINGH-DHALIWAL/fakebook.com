@@ -1,18 +1,31 @@
-import { ADD_COMMENT, ADD_POST, TOGGLE_LIKE, UPDATE_POSTS } from "../actions/actionTypes";
+import { ADD_COMMENT, ADD_POST, TOGGLE_LIKE, UPDATE_POSTS,START_POST_FETCH } from "../actions/actionTypes";
 
 // we are having array in object to make it scalable
 const initialPostState={
     posts:[],
+    inProgress:false
 };
 
-export function posts(state=[],action)
+export function posts(state=initialPostState,action)
 {   
 
     switch(action.type){
         case UPDATE_POSTS:
-            return action.posts;
+            return {
+                inProgress:false,
+                posts:action.posts
+            };
+        case START_POST_FETCH:
+            return {
+                ...state,
+                inProgress:true
+            }
+        
         case ADD_POST:
-            return [action.post,...state];
+            return {
+                ...state,
+              posts:  [action.post,...state]
+            };
         case TOGGLE_LIKE:
             const newPosts=state.map(post=>{
                 if(post._id===action.id){
@@ -36,7 +49,10 @@ export function posts(state=[],action)
                 else
                 return post;
             });
-            return newPosts;
+            return {
+                ...state,
+                posts:newPosts
+            };
 
         case ADD_COMMENT:
 
@@ -54,7 +70,10 @@ export function posts(state=[],action)
                     return post;
                 }
             });
-            return newPost;
+            return {
+                ...state,
+                posts:newPost
+            };
             
             
         default:

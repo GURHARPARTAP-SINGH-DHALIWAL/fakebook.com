@@ -1,10 +1,20 @@
 import { API_Urls } from "../helpers/urls";
 import { getAuthorisationTokenFromLocalStorage, getFormBody } from "../helpers/utils";
-import { ADD_COMMENT, ADD_POST, TOGGLE_LIKE, UPDATE_POSTS } from "./actionTypes";
+import { ADD_COMMENT, ADD_POST, START_POST_FETCH, TOGGLE_LIKE, UPDATE_POSTS } from "./actionTypes";
+
+
+
+export function startPostFetch(){
+    return {
+        type:START_POST_FETCH
+    };
+};
+
 
 export function fetchPosts(){
     return (dispatch)=>{
         const url=API_Urls.fetchPosts();
+        dispatch(startPostFetch());
 
         fetch(url)
         .then(res=>res.json())

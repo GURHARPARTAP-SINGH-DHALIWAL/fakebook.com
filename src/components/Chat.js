@@ -97,7 +97,7 @@ class Chat extends React.Component {
         const {showChat}=this.state;
 
         return (
-          <div className="chat-container" id="chat">
+          <div className="chat-container" id="chat" >
             <div className="chat-header">
               Chat
               <i class="fas fa-minus" height={17} onClick={this.handleChatPopup}></i>

@@ -154,7 +154,7 @@ class User extends React.Component {
             <div className="img-container">
               <img
                 id="user-dp"
-                src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
+                src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
                 alt="user-image"
               />
             </div>
@@ -164,12 +164,14 @@ class User extends React.Component {
             <div className="field">
               <div className="field-label">Email</div>
               <div className="field-value">{user.email}</div>
+              <div className="divider black"></div>
             </div>
 
             <div className="field">
               <div className="field-label">Name</div>
 
               <div className="field-value">{user.name}</div>
+              <div className="divider black"></div>
             </div>
 
             <div className="btn-grp">

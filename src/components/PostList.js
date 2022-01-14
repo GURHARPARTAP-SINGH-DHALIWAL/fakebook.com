@@ -7,7 +7,18 @@ import { connect } from "react-redux";
 
 class PostList extends React.Component {
     render() { 
-        const {posts}=this.props;
+
+       if(this.props.posts.inProgress)
+       {
+        
+            return (
+              <div>
+                <i class="fas fa-spinner" id="loader"></i>
+              </div>
+            );
+         
+       }
+        const {posts}=this.props.posts;
         return (
             <div className="posts-list">
               <CreatePost />

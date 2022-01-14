@@ -41,20 +41,23 @@ class Settings extends React.Component {
             <div className="img-container">
               <img
                 id="user-dp"
-                src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
+                src="https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png"
                 alt="user-image"
               />
             </div>
 
-
-            
             {error && <div className="alert error-dailog">{error}</div>}
-            {error===false && <div className="alert success-dailog">Profile Successfully Updated</div>}
+            {error === false && (
+              <div className="alert success-dailog">
+                Profile Successfully Updated
+              </div>
+            )}
             <br />
 
             <div className="field">
               <div className="field-label">Email</div>
               <div className="field-value">{user.email}</div>
+              <div className="divider"></div>
             </div>
 
             <div className="field">
@@ -68,7 +71,10 @@ class Settings extends React.Component {
                   value={this.state.name}
                 />
               ) : (
-                <div className="field-value">{user.name}</div>
+                <div>
+                  <div className="field-value">{user.name}</div>
+                  <div className="divider"></div>
+                </div>
               )}
             </div>
 
