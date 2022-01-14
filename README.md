@@ -27,11 +27,13 @@ A Social Media WebApp.
 
 * Liking and Commenting on a Post.
 
-* Add and Remove Firends.
+* Add and Remove F.R.I.E.N.D.S .
 
 * Search Users.
 
-* Chatting with other Users.
+* Chatting with other Users (Chat Engine).
+
+
 
 
 
