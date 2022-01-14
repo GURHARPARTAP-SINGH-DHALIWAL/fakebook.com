@@ -1,6 +1,6 @@
 import { API_Urls } from "../helpers/urls";
 import { getAuthorisationTokenFromLocalStorage, getFormBody } from "../helpers/utils";
-import { ADD_COMMENT, ADD_POST, UPDATE_POSTS } from "./actionTypes";
+import { ADD_COMMENT, ADD_POST, TOGGLE_LIKE, UPDATE_POSTS } from "./actionTypes";
 
 export function fetchPosts(){
     return (dispatch)=>{
@@ -96,3 +96,43 @@ export function addComment(comment,postId){
         postId
     };
 };
+
+export function togglePostLikeStore(id,userId){
+    return {
+        type:TOGGLE_LIKE,
+        id,
+        userId
+    };
+
+};
+
+
+export function toggleLike(id,toggleType,userId){
+    return (dispatch)=>{
+
+        // User Id Server will receive from authoridation headers
+        const url=API_Urls.toggleLike(id,toggleType);
+        console.log("Like Url--->",url);
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${getAuthorisationTokenFromLocalStorage()}`,
+          },
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log("Like Data",data);
+            if(data.success)
+            {
+                if(toggleType=='Post')
+                {
+                    dispatch(togglePostLikeStore(id,userId));
+                }
+              
+            }
+        })
+        .catch(err=>console.log(err))
+        ;
+    };
+}

@@ -1,4 +1,4 @@
-import { ADD_COMMENT, ADD_POST, UPDATE_POSTS } from "../actions/actionTypes";
+import { ADD_COMMENT, ADD_POST, TOGGLE_LIKE, UPDATE_POSTS } from "../actions/actionTypes";
 
 // we are having array in object to make it scalable
 const initialPostState={
@@ -13,6 +13,30 @@ export function posts(state=[],action)
             return action.posts;
         case ADD_POST:
             return [action.post,...state];
+        case TOGGLE_LIKE:
+            const newPosts=state.map(post=>{
+                if(post._id===action.id){
+
+                        const index=post.likes.indexOf(action.userId);
+                        if(index==-1){
+                        return {
+                            ...post,
+                            likes:[action.userId,...post.likes]
+                        };
+                        }
+                        else
+                        {
+                            const newLikes=post.likes.filter(id=>id!=action.userId);
+                            return {
+                                ...post,
+                                likes:newLikes
+                            }
+                        }
+                }
+                else
+                return post;
+            });
+            return newPosts;
 
         case ADD_COMMENT:
 
