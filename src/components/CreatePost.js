@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { createPost } from "../actions/posts";
+import { getAuthorisationTokenFromLocalStorage } from "../helpers/utils";
 
 class CreatePost extends React.Component {
     constructor(props){
@@ -10,15 +11,35 @@ class CreatePost extends React.Component {
         };
     };
     handleChange=(e)=>{
+      const token=getAuthorisationTokenFromLocalStorage();
+
+      if(token)
+      {
+            this.setState({
+              content: e.target.value,
+            });
+      }
+      else{
         this.setState({
-            content:e.target.value
+          content:"Please Login to add a Fake post"
         });
+      }
     };
     handleOnClick=()=>{
-        this.props.dispatch(createPost(this.state.content));
-        this.setState({
-            content:''
-        });
+       const token=getAuthorisationTokenFromLocalStorage();
+       if(token)
+       {
+          this.props.dispatch(createPost(this.state.content));
+          this.setState({
+            content: "",
+          });
+       }
+       else
+       {
+          this.setState({
+            content: "Please Login to add a Fake post",
+          });
+       }
     };
     render() { 
         return (
