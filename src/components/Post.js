@@ -94,12 +94,21 @@ else
 
   render() {
     const post = this.props.post;
-    if(post){
+    if(!post)
+    {
+      
+             return (
+              <div>
+                <i class="fas fa-spinner" id="loader"></i>
+              </div>
+            );
+        
+    }
     const isLiked=post.likes.includes(this.props.auth.user._id);
     const date=new Date(post.createdAt);
     const now = date.toLocaleString("en-US");
 
-    }
+    
     return (
       <div className="post-wrapper" key={post._id}>
         <div className="post-header">
