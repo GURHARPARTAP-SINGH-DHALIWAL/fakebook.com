@@ -126,6 +126,7 @@ export function login(email,password){
             }
           
         })
+        .catch(err=>console.log(err))
         
         ;
     }
@@ -143,10 +144,12 @@ export function signup(name,email,password,confirmPassword)
                   headers: {
                     "Content-type": "application/x-www-form-urlencoded",
                   },
-                  body: getFormBody({ name
-                    ,email,
-                     password,
-                     confirm_password:confirmPassword }),
+                  body: getFormBody({
+                    name,
+                    email,
+                    password,
+                    confirm_password: confirmPassword,
+                  }),
                 })
                   .then((res) => res.json())
                   .then((data) => {
@@ -157,7 +160,8 @@ export function signup(name,email,password,confirmPassword)
                     } else {
                       dispatch(signupFailed(data.message));
                     }
-                  });
+                  })
+                  .catch((err) => console.log(err));
         
     };
 }
@@ -174,38 +178,34 @@ export function editUser(name,password,confirmPassword,userId){
         method: "POST",
         headers: {
           "Content-type": "application/x-www-form-urlencoded",
-          "Authorization":`Bearer ${getAuthorisationTokenFromLocalStorage()}`
+          Authorization: `Bearer ${getAuthorisationTokenFromLocalStorage()}`,
         },
-        body:getFormBody({
+        body: getFormBody({
           name,
           password,
-          confirm_password:confirmPassword,
-          id:userId
+          confirm_password: confirmPassword,
+          id: userId,
         }),
       })
-      .then(res=>res.json())
-      .then(data=>{
-        console.log('data',data);
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("data", data);
 
-        if(data.success)
-        {
-          dispatch(editUserSuccessful(data.data.user));
-          // Change token also as layload gets updated
+          if (data.success) {
+            dispatch(editUserSuccessful(data.data.user));
+            // Change token also as layload gets updated
 
-          if (data.data.token) {
-            localStorage.setItem("token", data.data.token);
+            if (data.data.token) {
+              localStorage.setItem("token", data.data.token);
+            }
+            return;
           }
-          return;
-        }
 
-
-        if(data.message)
-        {
-          dispatch(editUserFailed(data.message));
-        }
-
-
-      });
+          if (data.message) {
+            dispatch(editUserFailed(data.message));
+          }
+        })
+        .catch((err) => console.log(err));
 
 
   };

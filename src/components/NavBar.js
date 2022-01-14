@@ -16,7 +16,7 @@ class NavBar extends React.Component {
               <Link to="/">
                 {" "}
                 <i class="fab fa-facebook" id="logo">
-                  akebook
+                  <span id="logo-text">akebook</span>
                 </i>
               </Link>
             </div>

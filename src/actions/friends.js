@@ -38,7 +38,8 @@ export function fetchFriends(userId){
           if (data.success) {
             dispatch(fetchFriendSuccess(data.data.friends));
           }
-        });
+        })
+        .catch(err=>console.log(err));
     };;
 
 };
