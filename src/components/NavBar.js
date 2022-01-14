@@ -25,7 +25,7 @@ class NavBar extends React.Component {
         const {auth}=this.props;
         const {results,inProgress}=this.props.search;
         return (
-          <nav className="nav">
+          <nav className="nav" id="navbar-container">
             {inProgress && (
               <div>
                 <i class="fas fa-spinner" id="loader"></i>
@@ -47,27 +47,26 @@ class NavBar extends React.Component {
               <input
                 type="text"
                 placeholder="Search"
+                id="search-bar"
                 onChange={(e) => this.handleChange(e)}
               ></input>
 
               {results.length > 0 && (
                 <div className="search-results">
                   <ul>
-                   {results.map(user=>{
-                     return (
-                       <Link to={`/user/${user._id}`}>
-                         <li className="search-results-row" key={user._id}>
-                           <img
-                             src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
-                             alt="user-image"
-                           />
-                           <span>{user.name}</span>
-                         </li>
-                       </Link>
-                     );
-                   })}
-
-                    
+                    {results.map((user) => {
+                      return (
+                        <Link to={`/user/${user._id}`}>
+                          <li className="search-results-row" key={user._id}>
+                            <img
+                              src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
+                              alt="user-image"
+                            />
+                            <span>{user.name}</span>
+                          </li>
+                        </Link>
+                      );
+                    })}
                   </ul>
                 </div>
               )}

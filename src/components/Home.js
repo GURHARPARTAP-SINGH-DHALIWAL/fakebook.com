@@ -2,6 +2,7 @@
 import React from "react";
 import { PostList } from ".";
 import FriendList from "./FriendList";
+import Chat from "./Chat";
 
 class Home extends React.Component {
     
@@ -13,6 +14,7 @@ class Home extends React.Component {
             
             <PostList posts={this.props.posts}></PostList>
             {isLoggedIn&&<FriendList friends={friends}> </FriendList>}
+            <Chat/>
           </div>
         );
     }

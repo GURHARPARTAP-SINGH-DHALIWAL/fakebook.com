@@ -174,18 +174,26 @@ class User extends React.Component {
 
             <div className="btn-grp">
               {isUserAFriend ? (
-                <button className="btn save-button" onClick={this.handleRemoveFriend}>Remove Friend</button>
+                <button
+                  className="red"
+                  id="user-button1"
+                  onClick={this.handleRemoveFriend}
+                >
+                  Remove Friend
+                </button>
               ) : (
-                <button className="btn save-button" onClick={this.handleAddFriend}>Add Friend</button>
+                <button
+                  className=""
+                  id="user-button"
+                  onClick={this.handleAddFriend}
+                >
+                  Add Friend
+                </button>
               )}
             </div>
 
-            {error && (
-              <div className="alert error-dailog">{error}</div>
-            )}
-            {success && (
-              <div className="alert success-dailog">{success}</div>
-            )}
+            {error && <div className="alert error-dailog">{error}</div>}
+            {success && <div className="alert success-dailog">{success}</div>}
           </div>
         );
     }

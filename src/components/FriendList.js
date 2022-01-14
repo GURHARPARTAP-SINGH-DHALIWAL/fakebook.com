@@ -5,7 +5,7 @@ class FriendList extends React.Component {
 
     render() { 
       
-        return <div className="friends-list">
+        return <div className="friends-list" id="f-list">
             <div className="header">
                     Friends
             </div>

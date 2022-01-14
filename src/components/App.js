@@ -75,6 +75,10 @@ class App extends React.Component {
       <Router>
         <div>
           <NavBar />
+          <br />
+          <br />
+          <br />
+          
           <Switch>
             <Route
               exact

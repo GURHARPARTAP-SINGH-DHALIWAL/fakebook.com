@@ -121,7 +121,7 @@ else
           <div className="post-like">
             {isLiked ? (
               <Link onClick={(e) => this.handleLike(e)}>
-                <i className="far fa-heart post-like" id="liked-heart"></i>
+                <i className="far fa-heart post-like " id="liked-heart"></i>
               </Link>
             ) : (
               <Link onClick={(e) => this.handleLike(e)}>
