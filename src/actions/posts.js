@@ -25,7 +25,7 @@ export function fetchPosts(){
         .catch(err=>{
              const data=[1,2,3];
             dispatch(updatePosts([]));
-            console.log(err);
+            console.log("Error in Fetching Posts-->",err);
         });
         ;
     };

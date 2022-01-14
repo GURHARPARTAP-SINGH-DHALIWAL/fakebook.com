@@ -45,8 +45,10 @@ export function  fetchUserProfile(userId){
                 dispatch(userProfileSuccess(data.data.user));
             }
             else{
+
+            
                 dispatch(userProfileFail(data.data.message));
             }
-        }).catch(err=>console.log(err));
+        }).catch(err=>console.log("Error Fethcing Posts--->",err));
     };
 };

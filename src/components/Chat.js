@@ -114,7 +114,7 @@ class Chat extends React.Component {
                           : "chat-bubble other-chat"
                       }
                     >  
-                    {message.user}
+                    {this.userEmail}
                     <div className="divider black"></div>
                       {message.content}
                     </div>

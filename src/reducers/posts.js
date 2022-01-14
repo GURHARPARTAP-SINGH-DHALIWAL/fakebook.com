@@ -24,10 +24,10 @@ export function posts(state=initialPostState,action)
         case ADD_POST:
             return {
                 ...state,
-              posts:  [action.post,...state]
+              posts:  [action.post,...state.posts]
             };
         case TOGGLE_LIKE:
-            const newPosts=state.map(post=>{
+            const newPosts=state.posts.map(post=>{
                 if(post._id===action.id){
 
                         const index=post.likes.indexOf(action.userId);
@@ -56,7 +56,7 @@ export function posts(state=initialPostState,action)
 
         case ADD_COMMENT:
 
-            const newPost=state.map(post=>{
+            const newPost=state.posts.map(post=>{
                 if(post._id===action.postId)
                 {
                     return {
