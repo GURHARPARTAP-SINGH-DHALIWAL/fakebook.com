@@ -11,10 +11,9 @@ class Home extends React.Component {
         const {isLoggedIn,friends}=this.props;
         return (
           <div className="home">
-            
             <PostList posts={this.props.posts}></PostList>
-            {isLoggedIn&&<FriendList friends={friends}> </FriendList>}
-            <Chat/>
+            {isLoggedIn && <FriendList friends={friends}> </FriendList>}
+            {isLoggedIn && <Chat />}
           </div>
         );
     }
