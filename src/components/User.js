@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { API_Urls } from "../helpers/urls";
 import { getAuthorisationTokenFromLocalStorage } from "../helpers/utils";
 import { addFriend, removeFriend } from "../actions/friends";
+import { Redirect } from "react-router-dom";
 // SO basically this components mounts just before mounting API is Hit and the store is chaged accordingly
 
 class User extends React.Component {
@@ -108,6 +109,14 @@ class User extends React.Component {
         console.log(profile);
         const {error,success}=this.state;
 
+
+        if(this.props.match.params.userId===this.props.auth.user._id)
+        {
+          return (
+            <Redirect to='/settings'></Redirect>
+          );
+        }
+
         if(profile.inProgress)
         {
             return (
@@ -167,7 +176,8 @@ class User extends React.Component {
 function mapStateToProps(state){
     return {
         profile:state.profile,
-        friends:state.friends
+        friends:state.friends,
+        auth:state.auth
 
     };
 };
