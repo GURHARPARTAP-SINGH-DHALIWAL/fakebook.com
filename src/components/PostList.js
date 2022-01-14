@@ -18,20 +18,18 @@ class PostList extends React.Component {
             );
          
        }
+
         const {posts}=this.props.posts;
+        console.log("================?",posts);
         return (
-            <div className="posts-list">
-              <CreatePost />
-              
-            {
-              posts.map((post)=>{
-                return (
-                    <Post post={post}/>
-                );
-              }
-                
-              )
-            }
+          <div className="posts-list">
+            <CreatePost />
+
+            {posts.map((post) => {
+              return <Post post={post} />;
+            })}
+
+            {posts.length === 0 && <h1>No Posts to Show</h1>}
           </div>
         );
     }

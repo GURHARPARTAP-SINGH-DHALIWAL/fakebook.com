@@ -24,7 +24,7 @@ export function fetchPosts(){
         })
         .catch(err=>{
              const data=[1,2,3];
-            dispatch(updatePosts(data));
+            dispatch(updatePosts([]));
             console.log(err);
         });
         ;
