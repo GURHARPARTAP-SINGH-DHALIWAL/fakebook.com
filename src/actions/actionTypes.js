@@ -20,3 +20,5 @@ export const REMOVE_FRIEND="REMOVE_FRIEND";
 export const ADD_POST="ADD_POST";
 export const ADD_COMMENT="ADD_COMMENT";
 export const TOGGLE_LIKE="TOGGLE_LIKE";
+export const START_SEARCH="START_SEARCH";
+export const SEARCH_SUCCESS="SEARCH_SUCCESS";

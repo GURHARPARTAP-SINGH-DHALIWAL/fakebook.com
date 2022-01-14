@@ -20,6 +20,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #eceffa;
+  background-image: url("https://www.setaswall.com/wp-content/uploads/2017/06/Dark-Wallpapes-17-1920-x-1200.jpg");
+
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -197,7 +199,7 @@ code {
 /* NAVBAR */
 .nav {
   display: flex;
-  background: #6200ee;
+  background: #030303;
   padding: 10px 20px;
   align-items: center;
   justify-content: space-between;
@@ -283,7 +285,7 @@ nav .nav-links ul li:hover {
   z-index: 100;
   max-height: 452px;
   overflow: scroll;
-  display: none;
+  /* display: none; */
 }
 .search-results ul {
   list-style-type: none;
@@ -423,7 +425,12 @@ nav .nav-links ul li:hover {
   border-radius: 6px;
   margin-top: 50px;
   margin-left: 30px;
-  width: 40%;
+  width: 35%;
+  position: relative;
+  left: 27%;
+  align-items: center;
+  font-weight: 600;
+  background-color: rgba(107, 107, 107, 0.6);
 }
 .settings .img-container {
   display: flex;
@@ -546,6 +553,7 @@ img{
   animation-duration: 2000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear; 
+  color: wheat;
 }
 
 @keyframes spin {
@@ -578,4 +586,9 @@ img{
 #liked-heart{
   color: red;
   
+}
+
+button{
+  background-color: orangered;
+  font-weight: 700;
 }

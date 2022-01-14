@@ -95,6 +95,8 @@ else
   render() {
     const post = this.props.post;
     const isLiked=post.likes.includes(this.props.auth.user._id);
+    const date=new Date(post.createdAt);
+    const now = date.toLocaleString("en-US");
     return (
       <div className="post-wrapper" key={post._id}>
         <div className="post-header">
@@ -110,7 +112,7 @@ else
                 <Link to={`/user/${post.user._id}`}>{post.user.name}</Link>
               </span>
 
-              <span className="post-time">few seconds ago</span>
+              <span className="post-time">On {now}</span>
             </div>
           </div>
         </div>

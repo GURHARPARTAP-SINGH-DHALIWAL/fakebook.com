@@ -27,6 +27,24 @@ class User extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+
+      const {
+        match:{params:prevParams}
+      }=prevProps;
+
+      const {
+        match:{params:currentParams}
+      }=this.props;
+
+
+      if(prevParams&&currentParams&&prevParams.userId!=currentParams.userId)
+      {
+          this.props.dispatch(fetchUserProfile(currentParams.userId));
+      }
+      
+    }
+
     checkUserAFriend=()=>{
 
         const {match}=this.props;

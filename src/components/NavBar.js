@@ -2,19 +2,37 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import React from "react";
 import { logoutUser } from "../actions/auth";
+import { getAuthorisationTokenFromLocalStorage } from "../helpers/utils";
+import { getSearchResults } from "../actions/search";
 
 class NavBar extends React.Component {
     logOut=()=>{
         localStorage.removeItem('token');
         this.props.dispatch(logoutUser());
     };
+    handleChange=(e)=>{
+        const token=getAuthorisationTokenFromLocalStorage();
+        if(token)
+        {
+            this.props.dispatch(getSearchResults(e.target.value));
+        }
+        else
+        {
+          e.target.value="Please Login to Search"
+        }
+    };
     render() { 
         const {auth}=this.props;
+        const {results,inProgress}=this.props.search;
         return (
           <nav className="nav">
+            {inProgress && (
+              <div>
+                <i class="fas fa-spinner" id="loader"></i>
+              </div>
+            )}
             <div className="left-div">
               <Link to="/">
-                {" "}
                 <i class="fab fa-facebook" id="logo">
                   <span id="logo-text">akebook</span>
                 </i>
@@ -26,27 +44,33 @@ class NavBar extends React.Component {
                
                 <i class="fas fa-search" id="search-icon"></i>
               </div> */}
-              <input type="text" placeholder="Search"></input>
+              <input
+                type="text"
+                placeholder="Search"
+                onChange={(e) => this.handleChange(e)}
+              ></input>
 
-              <div className="search-results">
-                <ul>
-                  <li className="search-results-row">
-                    <img
-                      src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
-                      alt="user-image"
-                    />
-                    <span>GSD</span>
-                  </li>
+              {results.length > 0 && (
+                <div className="search-results">
+                  <ul>
+                   {results.map(user=>{
+                     return (
+                       <Link to={`/user/${user._id}`}>
+                         <li className="search-results-row" key={user._id}>
+                           <img
+                             src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
+                             alt="user-image"
+                           />
+                           <span>{user.name}</span>
+                         </li>
+                       </Link>
+                     );
+                   })}
 
-                  <li className="search-results-row">
-                    <img
-                      src="https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg"
-                      alt="user-image"
-                    />
-                    <span>GSD2</span>
-                  </li>
-                </ul>
-              </div>
+                    
+                  </ul>
+                </div>
+              )}
             </div>
 
             <div className="right-nav">
@@ -88,7 +112,8 @@ class NavBar extends React.Component {
 // Tell which component you want from redux store
 function mapStateToProps(state){
     return {
-        auth:state.auth
+        auth:state.auth,
+        search:state.search
     }
 
 };
